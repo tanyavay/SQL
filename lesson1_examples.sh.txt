@@ -1,0 +1,73 @@
+# Базы данных
+!!! Внимание !!! В файле "Инструкция по установке ПО" описана установка только MySQL.
+Полный процесс развертывания тестового окружения описан ниже (пункты 1-8).
+Подробно пошаговый процесс разобран на вебинаре 1 урока (запись приложена к уроку).
+
+# Урок 1. Установка окружения
+
+1. Скачиваем и устанавливаем VirtualBox, MySQL Workbench, DBeaver, PuTTY, WinSCP, скачиваем установочный образ Ubuntu
+2. Создаем VM, настраиваем сеть(мост) и подключаем установочный образ Ubuntu (ISO-файл)
+3. Устанавливаем Ubuntu, устанавливаем VM Additions, включаем общий буфер обмена
+4. Устанавливаем обновление Ubuntu, доп. пакеты и MySQL
+# Обновим систему
+sudo apt update
+sudo apt upgrade
+
+# Затем ставим зависимости для установки гостевых дополнений
+sudo apt install gcc make perl
+
+# Устанавливаем сервер ssh
+sudo apt install openssh-server
+
+######################### Устанавливаем MySQL
+sudo apt install mysql-server
+
+# Проверка версии клиента и сервера
+mysql -V
+mysqld -V
+
+# Смотрим статус сервера
+sudo service mysql status
+sudo systemctl status mysql
+
+5. Настраиваем MySQL
+sudo mysql
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'root123';
+exit
+# Заходим в консольный клиент пользователем root с паролем
+mysql -u root -p
+
+6. Настраиваем подключение к VM по ssh (PuTTY и WinSCP)
+7. Настраиваем подключение к БД к VM (MySQL Workbench, DBeaver)
+8. [Опционально] Устанавливаем MySQL локально и настраиваем подключение к БД локально (MySQL Workbench, DBeaver)
+
+---------------------------
+# Подключение к удалённой машине через ssh
+ssh ваш_логин@ваш_IP
+mysql -u root -p
+exit
+
+######################### Установка MySQL на Mac OS
+brew install mysql
+
+# Запустить сервер
+brew services start mysql
+
+# Проверяем подключение
+mysql -u root
+
+# Задать пароль для root (в клиенте mysql)
+ALTER USER 'root'@'localhost' IDENTIFIED BY 'root123';
+
+# Если нужно перезапустить
+brew services restart mysql
+
+# Установка MySQL Workbench отдельно
+# https://dev.mysql.com/downloads/workbench/
+
+# Установка Dbeaver
+# https://dbeaver.io/download/
+
+# После установки подключаемся консольным клиентом
+# Подключаемся через Workbench
+# Устанавливаем и подключаемся через DBeaver
